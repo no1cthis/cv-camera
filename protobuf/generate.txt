@@ -1,0 +1,2 @@
+poetry run python -m grpc_tools.protoc -I../protobuf --python_out=.\proto_services\ --grpc_python_out=.\proto_services\ ..\protobuf\camera-service.proto
+npx protoc --ts_out ./protobuf --proto_path G:\diploma\protobuf G:\diploma\protobuf\camera-service.proto
