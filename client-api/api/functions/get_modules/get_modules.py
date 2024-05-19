@@ -3,18 +3,20 @@ from api.functions.get_modules.get_package_info import get_package_info
 from api.utils.maybe_cached import maybe_cached
 from api.functions.get_modules.get_module_description import get_module_description
 
-pattern = "module" 
+pattern = "module_" 
 
 def get_modules_function():
     result = []
     modules = maybe_cached( key="modules_full_list", get_value_function=lambda:search_packages_by_pattern(pattern=pattern))
-    print("modules")
     filtered_modules = [x for x in modules if x is not None]
-    print("filtered_modules")
+
     # modules.map(module => ({name: module, description: get_package_info(module)["description"]}))
-    
     for module in filtered_modules:
         info = maybe_cached(key=module, get_value_function=lambda: get_package_info(module))
-        result.append({"name": module, "description": get_module_description(info)})
+        
+        if info is None:
+            continue
+
+        result.append({"name": module, "description": get_module_description(info), "version": info["version"]})
 
     return result

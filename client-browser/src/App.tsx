@@ -7,6 +7,7 @@ import { FC } from "react";
 import { ModulesPage } from "./pages/modules-page";
 import { ModulePage } from "./pages/module-page";
 import { CameraProvider } from "./providers/camera-providers";
+import { CameraPage } from "./pages/camera-page";
 
 const App: FC = () => {
   return (
@@ -23,6 +24,9 @@ const App: FC = () => {
                 </Route>
                 <Route path="/modules/:module">
                   <ModulePage />
+                </Route>
+                <Route path="/test">
+                  <CameraPage />
                 </Route>
               </Switch>
             </div>

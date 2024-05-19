@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { useParams } from "wouter";
 import Markdown from "react-markdown";
 import { getModule } from "../api/get-module";
-import { Container, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 
 export const ModulePage: FC = () => {
   const params = useParams();

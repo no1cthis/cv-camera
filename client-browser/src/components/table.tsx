@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, version } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import {
   Button,
@@ -17,6 +17,7 @@ import { useCamera } from "../providers/camera-providers";
 type ModuleRecord = {
   name: string;
   description: string;
+  version: string;
 };
 
 export const Table: FC = () => {
@@ -33,7 +34,7 @@ export const Table: FC = () => {
 
   const { cameras, loading: cameraLoading } = useCamera();
 
-  console.log(cameras);
+  console.log(selectedRows);
 
   const downloadSelected = async () => {
     try {
@@ -46,7 +47,10 @@ export const Table: FC = () => {
         `http://localhost:5000/install-modules`,
         {
           addresses: selectedDevicesIp,
-          modules: selectedRows.map((row) => row.name),
+          modules: selectedRows.map((row) => ({
+            name: row.name,
+            version: row.version,
+          })),
         }
       );
 

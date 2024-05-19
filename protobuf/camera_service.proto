@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package cameraService;
+
+service CameraService {
+  rpc IsCameraAlive(google.protobuf.Empty) returns (IsCameraAliveResponse);
+  // rpc GetInstalledModules(google.protobuf.Empty) returns (GetInstalledModulesResponse);
+  rpc InstallModules(InstallModulesRequest) returns (google.protobuf.Empty);
+  rpc GetLastFrame(GetLastFrameRequest) returns (Frame);
+}
+
+message IsCameraAliveResponse {
+  bool is_alive = 1;
+}
+
+message GetInstalledModulesResponse {
+  repeated string modules = 1;
+}
+
+message InstallModulesRequest {
+  repeated Module modules = 1;
+}
+
+message Module {
+  string name = 1;
+  string version = 2;
+}
+
+message GetLastFrameRequest {
+  string module = 1;
+}
+
+message Frame {
+  bytes frame = 1;
+}

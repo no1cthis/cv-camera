@@ -6,7 +6,3 @@ def package_info(package_name):
         return response.json()
     else:
         return None
-
-package_name = 'requests'  # Replace 'requests' with the package you want to get info about
-info = package_info(package_name)
-print(info["info"]["description"])
