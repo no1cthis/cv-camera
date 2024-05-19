@@ -6,8 +6,9 @@ package cameraService;
 
 service CameraService {
   rpc IsCameraAlive(google.protobuf.Empty) returns (IsCameraAliveResponse);
-  // rpc GetInstalledModules(google.protobuf.Empty) returns (GetInstalledModulesResponse);
+  rpc GetInstalledModules(google.protobuf.Empty) returns (InstalledModules);
   rpc InstallModules(InstallModulesRequest) returns (google.protobuf.Empty);
+  rpc UninstallModules(InstallModulesRequest) returns (google.protobuf.Empty);
   rpc GetLastFrame(GetLastFrameRequest) returns (Frame);
 }
 
@@ -15,12 +16,18 @@ message IsCameraAliveResponse {
   bool is_alive = 1;
 }
 
-message GetInstalledModulesResponse {
-  repeated string modules = 1;
+message InstalledModules {
+  repeated InstalledModule modules = 1;
+};
+
+message InstalledModule {
+  string name = 1;
+  optional InstalledModuleOptions options = 2;
 }
 
+
 message InstallModulesRequest {
-  repeated Module modules = 1;
+  repeated string modules = 1;
 }
 
 message Module {
@@ -34,4 +41,9 @@ message GetLastFrameRequest {
 
 message Frame {
   bytes frame = 1;
+}
+
+message InstalledModuleOptions {
+  optional bool show = 1;
+  optional int32 processing_frame = 2;
 }

@@ -4,6 +4,7 @@ from proto_services.camera_service_twirp import CameraServiceClient
 
 
 def install_modules_function(address:str, modules: list):
+    print(f"Installing modules {modules} on {address}")
     try:
         return CameraServiceClient("http://"+address).InstallModules(ctx=Context(), request=InstallModulesRequest(modules=modules))
     except Exception as e:

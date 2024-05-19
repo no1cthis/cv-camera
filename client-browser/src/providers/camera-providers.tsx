@@ -28,7 +28,6 @@ export const CameraProvider: FC<PropsWithChildren> = ({ children }) => {
     setLoading(true);
     getNetworkDevices()
       .then((data) => {
-        console.log(data);
         setCameras(data);
       })
       .catch((error) => {

@@ -1,17 +1,22 @@
 import { FC } from "react";
 import { Button, Spinner } from "react-bootstrap";
 import { useCamera } from "../providers/camera-providers";
+import { Link } from "wouter";
 
 export const Sidenav: FC = () => {
   const { cameras, loading, refresh } = useCamera();
 
   const deviceList = cameras.map(({ ip }, index) => (
-    <a className={`nav-link ${index === 0 ? "pt-0" : ""}`} href="#" key={ip}>
+    <Link
+      className={`nav-link ${index === 0 ? "pt-0" : ""}`}
+      href={`/camera/${ip}`}
+      key={ip}
+    >
       <div className="sb-nav-link-icon">
         <i className="fas fa-tachometer-alt"></i>
       </div>
       {ip}
-    </a>
+    </Link>
   ));
 
   return (

@@ -22,22 +22,35 @@ export interface IsCameraAliveResponse {
     isAlive: boolean;
 }
 /**
- * @generated from protobuf message cameraService.GetInstalledModulesResponse
+ * @generated from protobuf message cameraService.InstalledModules
  */
-export interface GetInstalledModulesResponse {
+export interface InstalledModules {
     /**
-     * @generated from protobuf field: repeated string modules = 1;
+     * @generated from protobuf field: repeated cameraService.InstalledModule modules = 1;
      */
-    modules: string[];
+    modules: InstalledModule[];
+}
+/**
+ * @generated from protobuf message cameraService.InstalledModule
+ */
+export interface InstalledModule {
+    /**
+     * @generated from protobuf field: string name = 1;
+     */
+    name: string;
+    /**
+     * @generated from protobuf field: optional cameraService.InstalledModuleOptions options = 2;
+     */
+    options?: InstalledModuleOptions;
 }
 /**
  * @generated from protobuf message cameraService.InstallModulesRequest
  */
 export interface InstallModulesRequest {
     /**
-     * @generated from protobuf field: repeated cameraService.Module modules = 1;
+     * @generated from protobuf field: repeated string modules = 1;
      */
-    modules: Module[];
+    modules: string[];
 }
 /**
  * @generated from protobuf message cameraService.Module
@@ -69,6 +82,19 @@ export interface Frame {
      * @generated from protobuf field: bytes frame = 1;
      */
     frame: Uint8Array;
+}
+/**
+ * @generated from protobuf message cameraService.InstalledModuleOptions
+ */
+export interface InstalledModuleOptions {
+    /**
+     * @generated from protobuf field: optional bool show = 1;
+     */
+    show?: boolean;
+    /**
+     * @generated from protobuf field: optional int32 processing_frame = 2;
+     */
+    processingFrame?: number;
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class IsCameraAliveResponse$Type extends MessageType<IsCameraAliveResponse> {
@@ -118,20 +144,121 @@ class IsCameraAliveResponse$Type extends MessageType<IsCameraAliveResponse> {
  */
 export const IsCameraAliveResponse = new IsCameraAliveResponse$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class GetInstalledModulesResponse$Type extends MessageType<GetInstalledModulesResponse> {
+class InstalledModules$Type extends MessageType<InstalledModules> {
     constructor() {
-        super("cameraService.GetInstalledModulesResponse", [
-            { no: 1, name: "modules", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+        super("cameraService.InstalledModules", [
+            { no: 1, name: "modules", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => InstalledModule }
         ]);
     }
-    create(value?: PartialMessage<GetInstalledModulesResponse>): GetInstalledModulesResponse {
+    create(value?: PartialMessage<InstalledModules>): InstalledModules {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.modules = [];
         if (value !== undefined)
-            reflectionMergePartial<GetInstalledModulesResponse>(this, message, value);
+            reflectionMergePartial<InstalledModules>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetInstalledModulesResponse): GetInstalledModulesResponse {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: InstalledModules): InstalledModules {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* repeated cameraService.InstalledModule modules */ 1:
+                    message.modules.push(InstalledModule.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: InstalledModules, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* repeated cameraService.InstalledModule modules = 1; */
+        for (let i = 0; i < message.modules.length; i++)
+            InstalledModule.internalBinaryWrite(message.modules[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message cameraService.InstalledModules
+ */
+export const InstalledModules = new InstalledModules$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class InstalledModule$Type extends MessageType<InstalledModule> {
+    constructor() {
+        super("cameraService.InstalledModule", [
+            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "options", kind: "message", T: () => InstalledModuleOptions }
+        ]);
+    }
+    create(value?: PartialMessage<InstalledModule>): InstalledModule {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.name = "";
+        if (value !== undefined)
+            reflectionMergePartial<InstalledModule>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: InstalledModule): InstalledModule {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string name */ 1:
+                    message.name = reader.string();
+                    break;
+                case /* optional cameraService.InstalledModuleOptions options */ 2:
+                    message.options = InstalledModuleOptions.internalBinaryRead(reader, reader.uint32(), options, message.options);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: InstalledModule, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string name = 1; */
+        if (message.name !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.name);
+        /* optional cameraService.InstalledModuleOptions options = 2; */
+        if (message.options)
+            InstalledModuleOptions.internalBinaryWrite(message.options, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message cameraService.InstalledModule
+ */
+export const InstalledModule = new InstalledModule$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class InstallModulesRequest$Type extends MessageType<InstallModulesRequest> {
+    constructor() {
+        super("cameraService.InstallModulesRequest", [
+            { no: 1, name: "modules", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<InstallModulesRequest>): InstallModulesRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.modules = [];
+        if (value !== undefined)
+            reflectionMergePartial<InstallModulesRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: InstallModulesRequest): InstallModulesRequest {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -150,57 +277,10 @@ class GetInstalledModulesResponse$Type extends MessageType<GetInstalledModulesRe
         }
         return message;
     }
-    internalBinaryWrite(message: GetInstalledModulesResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message: InstallModulesRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
         /* repeated string modules = 1; */
         for (let i = 0; i < message.modules.length; i++)
             writer.tag(1, WireType.LengthDelimited).string(message.modules[i]);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message cameraService.GetInstalledModulesResponse
- */
-export const GetInstalledModulesResponse = new GetInstalledModulesResponse$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class InstallModulesRequest$Type extends MessageType<InstallModulesRequest> {
-    constructor() {
-        super("cameraService.InstallModulesRequest", [
-            { no: 1, name: "modules", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => Module }
-        ]);
-    }
-    create(value?: PartialMessage<InstallModulesRequest>): InstallModulesRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.modules = [];
-        if (value !== undefined)
-            reflectionMergePartial<InstallModulesRequest>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: InstallModulesRequest): InstallModulesRequest {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* repeated cameraService.Module modules */ 1:
-                    message.modules.push(Module.internalBinaryRead(reader, reader.uint32(), options));
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: InstallModulesRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated cameraService.Module modules = 1; */
-        for (let i = 0; i < message.modules.length; i++)
-            Module.internalBinaryWrite(message.modules[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -360,11 +440,66 @@ class Frame$Type extends MessageType<Frame> {
  * @generated MessageType for protobuf message cameraService.Frame
  */
 export const Frame = new Frame$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class InstalledModuleOptions$Type extends MessageType<InstalledModuleOptions> {
+    constructor() {
+        super("cameraService.InstalledModuleOptions", [
+            { no: 1, name: "show", kind: "scalar", opt: true, T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "processing_frame", kind: "scalar", opt: true, T: 5 /*ScalarType.INT32*/ }
+        ]);
+    }
+    create(value?: PartialMessage<InstalledModuleOptions>): InstalledModuleOptions {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        if (value !== undefined)
+            reflectionMergePartial<InstalledModuleOptions>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: InstalledModuleOptions): InstalledModuleOptions {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* optional bool show */ 1:
+                    message.show = reader.bool();
+                    break;
+                case /* optional int32 processing_frame */ 2:
+                    message.processingFrame = reader.int32();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: InstalledModuleOptions, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* optional bool show = 1; */
+        if (message.show !== undefined)
+            writer.tag(1, WireType.Varint).bool(message.show);
+        /* optional int32 processing_frame = 2; */
+        if (message.processingFrame !== undefined)
+            writer.tag(2, WireType.Varint).int32(message.processingFrame);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message cameraService.InstalledModuleOptions
+ */
+export const InstalledModuleOptions = new InstalledModuleOptions$Type();
 /**
  * @generated ServiceType for protobuf service cameraService.CameraService
  */
 export const CameraService = new ServiceType("cameraService.CameraService", [
     { name: "IsCameraAlive", options: {}, I: Empty, O: IsCameraAliveResponse },
+    { name: "GetInstalledModules", options: {}, I: Empty, O: InstalledModules },
     { name: "InstallModules", options: {}, I: InstallModulesRequest, O: Empty },
+    { name: "UninstallModules", options: {}, I: InstallModulesRequest, O: Empty },
     { name: "GetLastFrame", options: {}, I: GetLastFrameRequest, O: Frame }
 ]);

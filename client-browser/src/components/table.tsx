@@ -34,8 +34,6 @@ export const Table: FC = () => {
 
   const { cameras, loading: cameraLoading } = useCamera();
 
-  console.log(selectedRows);
-
   const downloadSelected = async () => {
     try {
       setDownloadLoading(true);
@@ -43,18 +41,17 @@ export const Table: FC = () => {
         .filter(Boolean)
         .map(([ip]) => ip);
 
-      const response = await axios.post(
-        `http://localhost:5000/install-modules`,
-        {
-          addresses: selectedDevicesIp,
-          modules: selectedRows.map((row) => ({
-            name: row.name,
-            version: row.version,
-          })),
-        }
-      );
+      const modules = selectedRows.map((row) => ({
+        name: row.name,
+        version: row.version,
+      }));
 
-      console.log(response);
+      console.log("Modules to download:", modules);
+
+      await axios.post(`http://localhost:5000/install-modules`, {
+        addresses: selectedDevicesIp,
+        modules,
+      });
 
       setShowModal(false);
       setSelectedRows([]);

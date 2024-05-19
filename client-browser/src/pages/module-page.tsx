@@ -10,7 +10,6 @@ export const ModulePage: FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(params);
     getModule(params.module!)
       .then((data) => {
         setModule(data);

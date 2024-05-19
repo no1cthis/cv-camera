@@ -28,10 +28,24 @@ class CameraServiceServer(TwirpServer):
 				input=_sym_db.GetSymbol("google.protobuf.Empty"),
 				output=_sym_db.GetSymbol("cameraService.IsCameraAliveResponse"),
 			),
+			"GetInstalledModules": Endpoint(
+				service_name="CameraService",
+				name="GetInstalledModules",
+				function=getattr(service, "GetInstalledModules"),
+				input=_sym_db.GetSymbol("google.protobuf.Empty"),
+				output=_sym_db.GetSymbol("cameraService.InstalledModules"),
+			),
 			"InstallModules": Endpoint(
 				service_name="CameraService",
 				name="InstallModules",
 				function=getattr(service, "InstallModules"),
+				input=_sym_db.GetSymbol("cameraService.InstallModulesRequest"),
+				output=_sym_db.GetSymbol("google.protobuf.Empty"),
+			),
+			"UninstallModules": Endpoint(
+				service_name="CameraService",
+				name="UninstallModules",
+				function=getattr(service, "UninstallModules"),
 				input=_sym_db.GetSymbol("cameraService.InstallModulesRequest"),
 				output=_sym_db.GetSymbol("google.protobuf.Empty"),
 			),
@@ -55,9 +69,27 @@ class CameraServiceClient(TwirpClient):
 			**kwargs,
 		)
 
+	def GetInstalledModules(self, *args, ctx, request, server_path_prefix="/twirp", **kwargs):
+		return self._make_request(
+			url=F"{server_path_prefix}/cameraService.CameraService/GetInstalledModules",
+			ctx=ctx,
+			request=request,
+			response_obj=_sym_db.GetSymbol("cameraService.InstalledModules"),
+			**kwargs,
+		)
+
 	def InstallModules(self, *args, ctx, request, server_path_prefix="/twirp", **kwargs):
 		return self._make_request(
 			url=F"{server_path_prefix}/cameraService.CameraService/InstallModules",
+			ctx=ctx,
+			request=request,
+			response_obj=_sym_db.GetSymbol("google.protobuf.Empty"),
+			**kwargs,
+		)
+
+	def UninstallModules(self, *args, ctx, request, server_path_prefix="/twirp", **kwargs):
+		return self._make_request(
+			url=F"{server_path_prefix}/cameraService.CameraService/UninstallModules",
 			ctx=ctx,
 			request=request,
 			response_obj=_sym_db.GetSymbol("google.protobuf.Empty"),
@@ -87,9 +119,29 @@ if _async_available:
 				**kwargs,
 			)
 
+		async def GetInstalledModules(self, *, ctx, request, server_path_prefix="/twirp", session=None, **kwargs):
+			return await self._make_request(
+				url=F"{server_path_prefix}/cameraService.CameraService/GetInstalledModules",
+				ctx=ctx,
+				request=request,
+				response_obj=_sym_db.GetSymbol("cameraService.InstalledModules"),
+				session=session,
+				**kwargs,
+			)
+
 		async def InstallModules(self, *, ctx, request, server_path_prefix="/twirp", session=None, **kwargs):
 			return await self._make_request(
 				url=F"{server_path_prefix}/cameraService.CameraService/InstallModules",
+				ctx=ctx,
+				request=request,
+				response_obj=_sym_db.GetSymbol("google.protobuf.Empty"),
+				session=session,
+				**kwargs,
+			)
+
+		async def UninstallModules(self, *, ctx, request, server_path_prefix="/twirp", session=None, **kwargs):
+			return await self._make_request(
+				url=F"{server_path_prefix}/cameraService.CameraService/UninstallModules",
 				ctx=ctx,
 				request=request,
 				response_obj=_sym_db.GetSymbol("google.protobuf.Empty"),

@@ -7,6 +7,7 @@ import { CameraService } from "./camera_service";
 import type { Frame } from "./camera_service";
 import type { GetLastFrameRequest } from "./camera_service";
 import type { InstallModulesRequest } from "./camera_service";
+import type { InstalledModules } from "./camera_service";
 import { stackIntercept } from "@protobuf-ts/runtime-rpc";
 import type { IsCameraAliveResponse } from "./camera_service";
 import type { Empty } from "./google/protobuf/empty";
@@ -21,11 +22,17 @@ export interface ICameraServiceClient {
      */
     isCameraAlive(input: Empty, options?: RpcOptions): UnaryCall<Empty, IsCameraAliveResponse>;
     /**
-     * rpc GetInstalledModules(google.protobuf.Empty) returns (GetInstalledModulesResponse);
-     *
+     * @generated from protobuf rpc: GetInstalledModules(google.protobuf.Empty) returns (cameraService.InstalledModules);
+     */
+    getInstalledModules(input: Empty, options?: RpcOptions): UnaryCall<Empty, InstalledModules>;
+    /**
      * @generated from protobuf rpc: InstallModules(cameraService.InstallModulesRequest) returns (google.protobuf.Empty);
      */
     installModules(input: InstallModulesRequest, options?: RpcOptions): UnaryCall<InstallModulesRequest, Empty>;
+    /**
+     * @generated from protobuf rpc: UninstallModules(cameraService.InstallModulesRequest) returns (google.protobuf.Empty);
+     */
+    uninstallModules(input: InstallModulesRequest, options?: RpcOptions): UnaryCall<InstallModulesRequest, Empty>;
     /**
      * @generated from protobuf rpc: GetLastFrame(cameraService.GetLastFrameRequest) returns (cameraService.Frame);
      */
@@ -48,19 +55,31 @@ export class CameraServiceClient implements ICameraServiceClient, ServiceInfo {
         return stackIntercept<Empty, IsCameraAliveResponse>("unary", this._transport, method, opt, input);
     }
     /**
-     * rpc GetInstalledModules(google.protobuf.Empty) returns (GetInstalledModulesResponse);
-     *
+     * @generated from protobuf rpc: GetInstalledModules(google.protobuf.Empty) returns (cameraService.InstalledModules);
+     */
+    getInstalledModules(input: Empty, options?: RpcOptions): UnaryCall<Empty, InstalledModules> {
+        const method = this.methods[1], opt = this._transport.mergeOptions(options);
+        return stackIntercept<Empty, InstalledModules>("unary", this._transport, method, opt, input);
+    }
+    /**
      * @generated from protobuf rpc: InstallModules(cameraService.InstallModulesRequest) returns (google.protobuf.Empty);
      */
     installModules(input: InstallModulesRequest, options?: RpcOptions): UnaryCall<InstallModulesRequest, Empty> {
-        const method = this.methods[1], opt = this._transport.mergeOptions(options);
+        const method = this.methods[2], opt = this._transport.mergeOptions(options);
+        return stackIntercept<InstallModulesRequest, Empty>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: UninstallModules(cameraService.InstallModulesRequest) returns (google.protobuf.Empty);
+     */
+    uninstallModules(input: InstallModulesRequest, options?: RpcOptions): UnaryCall<InstallModulesRequest, Empty> {
+        const method = this.methods[3], opt = this._transport.mergeOptions(options);
         return stackIntercept<InstallModulesRequest, Empty>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: GetLastFrame(cameraService.GetLastFrameRequest) returns (cameraService.Frame);
      */
     getLastFrame(input: GetLastFrameRequest, options?: RpcOptions): UnaryCall<GetLastFrameRequest, Frame> {
-        const method = this.methods[2], opt = this._transport.mergeOptions(options);
+        const method = this.methods[4], opt = this._transport.mergeOptions(options);
         return stackIntercept<GetLastFrameRequest, Frame>("unary", this._transport, method, opt, input);
     }
 }

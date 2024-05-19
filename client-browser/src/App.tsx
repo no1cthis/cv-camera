@@ -25,7 +25,7 @@ const App: FC = () => {
                 <Route path="/modules/:module">
                   <ModulePage />
                 </Route>
-                <Route path="/test">
+                <Route path="/camera/:ip">
                   <CameraPage />
                 </Route>
               </Switch>

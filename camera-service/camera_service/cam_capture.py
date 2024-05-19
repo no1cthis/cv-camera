@@ -16,7 +16,7 @@ def cam_capture():
             # cv2.imshow('Webcam', frame)
 
             # if cv2.waitKey(1) & 0xFF == ord('q'):
-            #     break
+                # break
 
         except Exception as e:
             print(f"Error processing frame {frame_number}: {e}")

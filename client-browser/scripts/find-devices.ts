@@ -50,7 +50,6 @@ async function scanLAN() {
   for (let i = 1; i <= 254; i++) {
     const ip = `192.168.1.${i}`;
     const pingResult = await pingIp(ip);
-    // console.log(`Host ${ip} is active: ${pingResult}`);
 
     if (pingResult) {
       console.log(`Host ${pingResult} is active`);

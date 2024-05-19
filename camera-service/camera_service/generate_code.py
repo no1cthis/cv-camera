@@ -1,25 +1,22 @@
-import toml
+from camera_service.utils.get_modules_from_toml import get_modules_from_toml
 
 def generate_code():
-    with open('pyproject.toml', 'r') as file:
-        pyproject_data = toml.load(file)
-
-    if 'tool' in pyproject_data and 'poetry' in pyproject_data['tool']:
-        dependencies = pyproject_data['tool']['poetry'].get('dependencies', {})
-        import_code = []
-        modules_list = []
+    modules = get_modules_from_toml()
+    import_code = []
+    original_frame_processing = "def original_frame_processing(frame, frame_number):\n\treturn"
+    modules_list = ['{ "name": "Original Frame", "package_name": "original", "proccessing": original_frame_processing }']
 
 
 
-        for package, version in dependencies.items():
-            if package.startswith("module"):
-                import_statement = f"import {package}"
-                import_code.append(import_statement)
-                modules_list.append(package)
+    for package, version in modules:
+        import_statement = f"import {package}"
+        import_code.append(import_statement)
+        module_item = f"""{{ "name": {package}.name, "package_name": "{package}", "proccessing": {package}.proccessing, "options": {package}.options }}"""
 
+        modules_list.append(module_item)
 
-        with open('.\\camera_service\\modules\\modules_list.py', 'w') as out_file:
-            out_file.write('\n'.join([*import_code, "\n", "modules = [", ", ".join(modules_list), "]"]))
+    with open('.\\camera_service\\modules\\modules_list.py', 'w') as out_file:
+        out_file.write('\n'.join([*import_code, "\n", original_frame_processing, "\n" "modules = [", ", ".join(modules_list), "]"]))
 
 if __name__ == "__main__":
     generate_code()

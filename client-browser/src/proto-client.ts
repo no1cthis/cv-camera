@@ -11,7 +11,7 @@ export function getClient(ip:string){
     const response = clients.get(url)
     if(response) return response
 
-    const transport = new TwirpFetchTransport({baseUrl: url})
+    const transport = new TwirpFetchTransport({baseUrl: url })
     const client = new CameraServiceClient(transport)
     
 

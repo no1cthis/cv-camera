@@ -39,14 +39,14 @@ export const ModuleVideo: FC<ModuleVideoProps> = (props) => {
     <div className="card mb-4">
       <div className="card-header">
         <i className="fas fa-chart-pie me-1"></i>
-        Pie Chart Example
+        {module}
       </div>
       <div className="card-body p-0">
         <img src={image} alt="test" className="w-100 h-100" />
       </div>
-      <div className="card-footer small text-muted">
+      {/* <div className="card-footer small text-muted">
         Updated yesterday at 11:59 PM
-      </div>
+      </div> */}
     </div>
   );
 };
