@@ -85,13 +85,22 @@ export const CameraPage: FC = () => {
     modulesToDelete.forEach((module) => doNotShowThisModules.add(module));
   };
 
+  const disabledButton = !Object.values(selectedModules).some(
+    (selected) => selected === true
+  );
+
   return (
     <div className="mt-2">
       <h1 className="text-center mb-2">{ip}</h1>
       <div className="row">
         <Form className="w-75">{moduleList}</Form>
         <div className="w-25">
-          <Button className="w-100" onClick={deleteModules}>
+          <Button
+            className="w-100"
+            variant="danger"
+            disabled={disabledButton}
+            onClick={deleteModules}
+          >
             Delete Modules
           </Button>
         </div>
