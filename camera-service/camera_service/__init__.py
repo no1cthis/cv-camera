@@ -95,7 +95,7 @@ def start():
     logging.basicConfig()
 
     # Install packages.
-    # poetry_install()
+    poetry_install()
 
     thread = Thread(target = run_server, args = ())
     thread.start()
