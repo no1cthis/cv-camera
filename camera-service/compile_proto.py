@@ -4,8 +4,8 @@ import subprocess
 command = [
     "../protobuf/protoc.exe",
     "-I../protobuf",
-    "--python_out=./proto_services",
-    "--twirpy_out=./proto_services",
+    "--python_out=./cv_smart_house_camera/proto_services",
+    "--twirpy_out=./cv_smart_house_camera/proto_services",
     "../protobuf/camera_service.proto"
 ]
 

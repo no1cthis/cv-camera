@@ -1,5 +1,5 @@
 import toml
-from camera_service.constants import PATTERN
+from cv_smart_house_camera.constants import PATTERN
 
 def get_modules_from_toml():
     with open('pyproject.toml', 'r') as file:

@@ -46,7 +46,7 @@ class CameraServiceServer(TwirpServer):
 				service_name="CameraService",
 				name="UninstallModules",
 				function=getattr(service, "UninstallModules"),
-				input=_sym_db.GetSymbol("cameraService.InstallModulesRequest"),
+				input=_sym_db.GetSymbol("cameraService.UninstallModulesRequest"),
 				output=_sym_db.GetSymbol("google.protobuf.Empty"),
 			),
 			"GetLastFrame": Endpoint(

@@ -8,7 +8,7 @@ service CameraService {
   rpc IsCameraAlive(google.protobuf.Empty) returns (IsCameraAliveResponse);
   rpc GetInstalledModules(google.protobuf.Empty) returns (InstalledModules);
   rpc InstallModules(InstallModulesRequest) returns (google.protobuf.Empty);
-  rpc UninstallModules(InstallModulesRequest) returns (google.protobuf.Empty);
+  rpc UninstallModules(UninstallModulesRequest) returns (google.protobuf.Empty);
   rpc GetLastFrame(GetLastFrameRequest) returns (Frame);
 }
 
@@ -22,11 +22,15 @@ message InstalledModules {
 
 message InstalledModule {
   string name = 1;
-  optional InstalledModuleOptions options = 2;
+  string package_name = 2;
+  optional InstalledModuleOptions options = 3;
 }
 
-
 message InstallModulesRequest {
+  repeated Module modules = 1;
+}
+
+message UninstallModulesRequest {
   repeated string modules = 1;
 }
 

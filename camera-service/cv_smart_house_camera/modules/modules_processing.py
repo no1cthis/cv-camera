@@ -1,5 +1,5 @@
-from camera_service.modules.modules_list import modules
-from camera_service.data.frames import modules_result
+from cv_smart_house_camera.modules.modules_list import modules
+from cv_smart_house_camera.data.frames import modules_result
 import concurrent.futures
 import cv2
 
@@ -24,7 +24,7 @@ def modules_processing(originalFrame, frame_number):
 		if previous_module_future is None or (skip_frames is None and previous_module_future.running() is False) or (skip_frames is not None and frame_number % skip_frames == 0):
 			# Submit module processing task to the thread pool and store the future
 
-			future = pool.submit(module.get("proccessing"), frameCopy, frame_number)	
+			future = pool.submit(module.get("processing"), frameCopy, frame_number)	
 			module_futures[module.get("name")] = future
 			future.add_done_callback(lambda f, moduleName=module.get("name"): store_result(f, moduleName, originalFrame))
 

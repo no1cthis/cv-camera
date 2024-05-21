@@ -39,7 +39,11 @@ export interface InstalledModule {
      */
     name: string;
     /**
-     * @generated from protobuf field: optional cameraService.InstalledModuleOptions options = 2;
+     * @generated from protobuf field: string package_name = 2;
+     */
+    packageName: string;
+    /**
+     * @generated from protobuf field: optional cameraService.InstalledModuleOptions options = 3;
      */
     options?: InstalledModuleOptions;
 }
@@ -47,6 +51,15 @@ export interface InstalledModule {
  * @generated from protobuf message cameraService.InstallModulesRequest
  */
 export interface InstallModulesRequest {
+    /**
+     * @generated from protobuf field: repeated cameraService.Module modules = 1;
+     */
+    modules: Module[];
+}
+/**
+ * @generated from protobuf message cameraService.UninstallModulesRequest
+ */
+export interface UninstallModulesRequest {
     /**
      * @generated from protobuf field: repeated string modules = 1;
      */
@@ -195,12 +208,14 @@ class InstalledModule$Type extends MessageType<InstalledModule> {
     constructor() {
         super("cameraService.InstalledModule", [
             { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "options", kind: "message", T: () => InstalledModuleOptions }
+            { no: 2, name: "package_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "options", kind: "message", T: () => InstalledModuleOptions }
         ]);
     }
     create(value?: PartialMessage<InstalledModule>): InstalledModule {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.name = "";
+        message.packageName = "";
         if (value !== undefined)
             reflectionMergePartial<InstalledModule>(this, message, value);
         return message;
@@ -213,7 +228,10 @@ class InstalledModule$Type extends MessageType<InstalledModule> {
                 case /* string name */ 1:
                     message.name = reader.string();
                     break;
-                case /* optional cameraService.InstalledModuleOptions options */ 2:
+                case /* string package_name */ 2:
+                    message.packageName = reader.string();
+                    break;
+                case /* optional cameraService.InstalledModuleOptions options */ 3:
                     message.options = InstalledModuleOptions.internalBinaryRead(reader, reader.uint32(), options, message.options);
                     break;
                 default:
@@ -231,9 +249,12 @@ class InstalledModule$Type extends MessageType<InstalledModule> {
         /* string name = 1; */
         if (message.name !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* optional cameraService.InstalledModuleOptions options = 2; */
+        /* string package_name = 2; */
+        if (message.packageName !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.packageName);
+        /* optional cameraService.InstalledModuleOptions options = 3; */
         if (message.options)
-            InstalledModuleOptions.internalBinaryWrite(message.options, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            InstalledModuleOptions.internalBinaryWrite(message.options, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -248,7 +269,7 @@ export const InstalledModule = new InstalledModule$Type();
 class InstallModulesRequest$Type extends MessageType<InstallModulesRequest> {
     constructor() {
         super("cameraService.InstallModulesRequest", [
-            { no: 1, name: "modules", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "modules", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => Module }
         ]);
     }
     create(value?: PartialMessage<InstallModulesRequest>): InstallModulesRequest {
@@ -259,6 +280,53 @@ class InstallModulesRequest$Type extends MessageType<InstallModulesRequest> {
         return message;
     }
     internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: InstallModulesRequest): InstallModulesRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* repeated cameraService.Module modules */ 1:
+                    message.modules.push(Module.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: InstallModulesRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* repeated cameraService.Module modules = 1; */
+        for (let i = 0; i < message.modules.length; i++)
+            Module.internalBinaryWrite(message.modules[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message cameraService.InstallModulesRequest
+ */
+export const InstallModulesRequest = new InstallModulesRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class UninstallModulesRequest$Type extends MessageType<UninstallModulesRequest> {
+    constructor() {
+        super("cameraService.UninstallModulesRequest", [
+            { no: 1, name: "modules", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<UninstallModulesRequest>): UninstallModulesRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.modules = [];
+        if (value !== undefined)
+            reflectionMergePartial<UninstallModulesRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: UninstallModulesRequest): UninstallModulesRequest {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -277,7 +345,7 @@ class InstallModulesRequest$Type extends MessageType<InstallModulesRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: InstallModulesRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message: UninstallModulesRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
         /* repeated string modules = 1; */
         for (let i = 0; i < message.modules.length; i++)
             writer.tag(1, WireType.LengthDelimited).string(message.modules[i]);
@@ -288,9 +356,9 @@ class InstallModulesRequest$Type extends MessageType<InstallModulesRequest> {
     }
 }
 /**
- * @generated MessageType for protobuf message cameraService.InstallModulesRequest
+ * @generated MessageType for protobuf message cameraService.UninstallModulesRequest
  */
-export const InstallModulesRequest = new InstallModulesRequest$Type();
+export const UninstallModulesRequest = new UninstallModulesRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class Module$Type extends MessageType<Module> {
     constructor() {
@@ -500,6 +568,6 @@ export const CameraService = new ServiceType("cameraService.CameraService", [
     { name: "IsCameraAlive", options: {}, I: Empty, O: IsCameraAliveResponse },
     { name: "GetInstalledModules", options: {}, I: Empty, O: InstalledModules },
     { name: "InstallModules", options: {}, I: InstallModulesRequest, O: Empty },
-    { name: "UninstallModules", options: {}, I: InstallModulesRequest, O: Empty },
+    { name: "UninstallModules", options: {}, I: UninstallModulesRequest, O: Empty },
     { name: "GetLastFrame", options: {}, I: GetLastFrameRequest, O: Frame }
 ]);

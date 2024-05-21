@@ -1,6 +1,5 @@
 import cv2
-from camera_service.data.frames import modules_result
-from camera_service.modules.modules_processing import modules_processing
+from cv_smart_house_camera.modules.modules_processing import modules_processing
 
 def cam_capture():
     cap = cv2.VideoCapture(0)  # 0 for default webcam, change if necessary

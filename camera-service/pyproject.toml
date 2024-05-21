@@ -3,8 +3,8 @@ requires = [ "poetry-core",]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "camera-service"
-version = "0.1.0"
+name = "cv-smart-house-camera"
+version = "0.1.3"
 description = ""
 authors = [ "Your Name <you@example.com>",]
 readme = "README.md"
@@ -25,5 +25,5 @@ aiohttp = "^3.9.5"
 aiortc = "^1.8.0"
 
 [tool.poetry.scripts]
-start = "camera_service.__init__:start"
+start = "cv_smart_house_camera.__init__:configure_camera_server"
 compile = "compile_proto:compile_proto_files"

@@ -6,7 +6,6 @@ import { InstalledModules } from "../../protobuf/camera_service";
 import { Button, Form, Spinner } from "react-bootstrap";
 
 const doNotShowThisModules = new Set<string>();
-const originalModules = new Set<string>(["Original Frame"]);
 
 export const CameraPage: FC = () => {
   const params = useParams<{ ip: string }>();
@@ -21,6 +20,7 @@ export const CameraPage: FC = () => {
     getClient(ip)
       .getInstalledModules({})
       .then(({ response }) => {
+        // Sort modules by name
         const sortedModules = response.modules.sort((a, b) =>
           a.name.localeCompare(b.name)
         );
@@ -34,8 +34,8 @@ export const CameraPage: FC = () => {
 
   const moduleVideos = modules
     .map((module) => {
-      const { name, options } = module;
-      if (options?.show === false || doNotShowThisModules.has(name))
+      const { name, packageName, options } = module;
+      if (options?.show === false || doNotShowThisModules.has(packageName))
         return null;
       return (
         <div className="col-lg-6">
@@ -48,8 +48,8 @@ export const CameraPage: FC = () => {
   const moduleList = modules
     .filter(
       (module) =>
-        !doNotShowThisModules.has(module.name) &&
-        !originalModules.has(module.name)
+        !doNotShowThisModules.has(module.packageName) &&
+        !module.packageName === "internal"
     )
     .map((module) => (
       <Form.Check

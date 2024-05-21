@@ -3,7 +3,7 @@ from api.functions.get_modules.get_package_info import get_package_info
 from api.utils.maybe_cached import maybe_cached
 from api.functions.get_modules.get_module_description import get_module_description
 
-pattern = "module_" 
+pattern = "cv_smart_house_module_" 
 
 def get_modules_function():
     result = []
