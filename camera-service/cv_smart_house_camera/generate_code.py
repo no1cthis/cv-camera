@@ -15,8 +15,8 @@ def generate_code():
 
         modules_list.append(module_item)
 
-    # with open('.\\camera_service\\modules\\modules_list.py', 'w') as out_file:
-    with open('.\\.venv\\Lib\\site-packages\\camera_service\\modules\\modules_list.py', 'w') as out_file:
+    # with open('.\\cv_smart_house_camera\\modules\\modules_list.py', 'w') as out_file:
+    with open('.\\.venv\\Lib\\site-packages\\cv_smart_house_camera\\modules\\modules_list.py', 'w') as out_file:
         out_file.write('\n'.join([*import_code, "\n", original_frame_processing, "\n" "modules = [", ", ".join(modules_list), "]"]))
 
 if __name__ == "__main__":

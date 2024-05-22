@@ -4,7 +4,6 @@ import uvicorn
 from threading import Thread
 from cv_smart_house_camera.cam_capture import cam_capture
 from twirp.asgi import TwirpASGIApp
-from  cv_smart_house_camera.proto_services.camera_service_twirp import CameraServiceServer
 import  cv_smart_house_camera.proto_services.camera_service_pb2 as camera_service
 from cv_smart_house_camera.data.frames import modules_result
 from cv_smart_house_camera.modules.modules_list import modules as modules_list
@@ -78,7 +77,6 @@ class CameraService(object):
 
 app = TwirpASGIApp()
 service = CameraServiceServer(service=CameraService())
-app.add_service(service)
 
 # Wrap the app with CORSMiddleware
 app = CORSMiddleware(
@@ -103,7 +101,7 @@ def configure_camera_server(services: list = [],
 
     # Add modules to the list
     for module in modules:
-        module.package_name = "internal"
+        module["package_name"] = "internal"
         modules_list.append(module)
 
     app = TwirpASGIApp()

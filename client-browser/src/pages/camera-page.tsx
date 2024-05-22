@@ -49,7 +49,7 @@ export const CameraPage: FC = () => {
     .filter(
       (module) =>
         !doNotShowThisModules.has(module.packageName) &&
-        !module.packageName === "internal"
+        module.packageName !== "internal"
     )
     .map((module) => (
       <Form.Check
