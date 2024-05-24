@@ -1,10 +1,22 @@
 from cv_smart_house_camera.utils.get_modules_from_toml import get_modules_from_toml
 
+import os
+
+# Define the path
+path = '.\\.tmp'
+file_path = os.path.join(path, 'modules_list.py')
+
+# Check if the directory exists and create it if it doesn't
+if not os.path.exists(path):
+    os.makedirs(path)
+
+
+
+
 def generate_code():
     modules = get_modules_from_toml()
     import_code = []
-    original_frame_processing = "def original_frame_processing(frame, frame_number):\n\treturn"
-    modules_list = ['{ "name": "Original Frame", "package_name": "internal", "processing": original_frame_processing }']
+    modules_list = []
 
 
 
@@ -15,9 +27,9 @@ def generate_code():
 
         modules_list.append(module_item)
 
-    # with open('.\\cv_smart_house_camera\\modules\\modules_list.py', 'w') as out_file:
-    with open('.\\.venv\\Lib\\site-packages\\cv_smart_house_camera\\modules\\modules_list.py', 'w') as out_file:
-        out_file.write('\n'.join([*import_code, "\n", original_frame_processing, "\n" "modules = [", ", ".join(modules_list), "]"]))
+    # Write to the file
+    with open(file_path, 'w') as out_file:
+        out_file.write('\n'.join([*import_code, "\n", "modules = [", ", ".join(modules_list), "]"]))
 
 if __name__ == "__main__":
     generate_code()

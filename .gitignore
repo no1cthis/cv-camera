@@ -5,3 +5,4 @@ start.bat
 theme
 token.txt
 dist
+.tmp

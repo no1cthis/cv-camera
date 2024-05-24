@@ -25,5 +25,5 @@ aiohttp = "^3.9.5"
 aiortc = "^1.8.0"
 
 [tool.poetry.scripts]
-start = "cv_smart_house_camera.__init__:configure_camera_server"
+start = "cv_smart_house_camera.main:main"
 compile = "compile_proto:compile_proto_files"

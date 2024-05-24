@@ -1,10 +1,11 @@
 import subprocess
 
-def poetry_install():
-    command = ['poetry', 'install']
+def poetry_install(poetry_path,):
+    lock = [poetry_path, 'lock']
+    install = [poetry_path, 'install']
 
-    try:
-        result = subprocess.run(command, capture_output=True, text=True, check=True)
-        print(result.stdout)
-    except subprocess.CalledProcessError as e:
-        print(f"Error: {e.stderr}")
+
+    result = subprocess.run(lock, capture_output=True, text=True, check=True)
+    print(result.stdout)
+    result = subprocess.run(install, capture_output=True, text=True, check=True)
+    print(result.stdout)
