@@ -10,6 +10,7 @@ const doNotShowThisModules = new Set<string>();
 export const CameraPage: FC = () => {
   const params = useParams<{ ip: string }>();
   const [loading, setLoading] = useState(true);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const [modules, setModules] = useState<InstalledModules["modules"]>([]);
   const [selectedModules, setSelectedModules] = useState<string[]>([]);
 
@@ -38,7 +39,7 @@ export const CameraPage: FC = () => {
       if (options?.show === false || doNotShowThisModules.has(packageName))
         return null;
       return (
-        <div className="col-lg-6">
+        <div className="col-lg-6" key={packageName}>
           <ModuleVideo ip={ip} module={name} />
         </div>
       );
@@ -68,11 +69,10 @@ export const CameraPage: FC = () => {
     ));
 
   const deleteModules = () => {
+    setDeleteLoading(true);
     const modulesToDelete = Object.entries(selectedModules)
       .filter(([, selected]) => selected)
       .map(([module]) => module);
-
-    console.log(modulesToDelete);
 
     getClient(ip)
       .uninstallModules({ modules: modulesToDelete })
@@ -80,14 +80,15 @@ export const CameraPage: FC = () => {
         setModules((modules) =>
           modules.filter((module) => !modulesToDelete.includes(module.name))
         );
+      })
+      .finally(() => {
+        setDeleteLoading(false);
       });
 
     modulesToDelete.forEach((module) => doNotShowThisModules.add(module));
   };
 
-  const disabledButton = !Object.values(selectedModules).some(
-    (selected) => selected === true
-  );
+  const disabledButton = deleteLoading || !selectedModules.length;
 
   return (
     <div className="mt-2">
@@ -101,7 +102,7 @@ export const CameraPage: FC = () => {
             disabled={disabledButton}
             onClick={deleteModules}
           >
-            Delete Modules
+            {deleteLoading ? "Deleting..." : "Delete Modules"}
           </Button>
         </div>
       </div>

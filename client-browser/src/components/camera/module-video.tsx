@@ -16,7 +16,9 @@ export const ModuleVideo: FC<ModuleVideoProps> = (props) => {
   useEffect(() => {
     const fetchImage = async () => {
       const client = getClient(ip);
+
       const { response } = await client.getLastFrame({ module });
+
       const uint8Array = new Uint8Array(response.frame);
       const base64String = arrayBufferToBase64(uint8Array);
       const image = `data:image/jpeg;base64,${base64String}`;

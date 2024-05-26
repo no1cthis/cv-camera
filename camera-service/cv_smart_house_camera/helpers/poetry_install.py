@@ -1,7 +1,7 @@
 import subprocess
 
 def poetry_install(poetry_path,):
-    lock = [poetry_path, 'lock']
+    lock = [poetry_path, 'lock', '--no-update']
     install = [poetry_path, 'install']
 
 
