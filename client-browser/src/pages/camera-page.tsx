@@ -4,6 +4,7 @@ import { useParams } from "wouter";
 import { getClient } from "../proto-client";
 import { InstalledModules } from "../../protobuf/camera_service";
 import { Button, Form, Spinner } from "react-bootstrap";
+import { ModuleVideoMock } from "../components/camera/module-video-mock";
 
 const doNotShowThisModules = new Set<string>();
 
@@ -40,7 +41,8 @@ export const CameraPage: FC = () => {
         return null;
       return (
         <div className="col-lg-6" key={packageName}>
-          <ModuleVideo ip={ip} module={name} />
+          {/* <ModuleVideo ip={ip} module={name} /> */}
+          <ModuleVideoMock ip={ip} module={name} />
         </div>
       );
     })
